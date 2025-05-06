@@ -1,0 +1,10 @@
+C:\Users\xodml\source\repos\ToDoList\ToDoList\bin\Debug\ToDoList.exe.config
+C:\Users\xodml\source\repos\ToDoList\ToDoList\bin\Debug\ToDoList.exe
+C:\Users\xodml\source\repos\ToDoList\ToDoList\bin\Debug\ToDoList.pdb
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.csproj.AssemblyReference.cache
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.ToDoList.resources
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.Properties.Resources.resources
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.csproj.GenerateResource.cache
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.exe
+C:\Users\xodml\source\repos\ToDoList\ToDoList\obj\Debug\ToDoList.pdb
