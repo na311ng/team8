@@ -21,6 +21,26 @@ namespace ToDoList
         DataTable todoList = new DataTable();
         //현재 데이터를 수정 중인가 
         bool isEditing = false;
+        private void btnAddSchedule_Click(object sender, EventArgs e)
+        {
+            using (var form = new AddScheduleForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    // 일정 저장
+                    todoList.Rows.Add(
+                        form.ScheduleTitle,
+                        form.ScheduleDescription,
+                        form.StartDate,
+                        form.EndDate
+                    );
+
+                    // 달력에 시작일 강조
+                    calendar.AddBoldedDate(form.StartDate);
+                    calendar.UpdateBoldedDates();
+                }
+            }
+        }
 
         private void ToDoList_Load(object sender, EventArgs e)
         {
