@@ -158,7 +158,21 @@ namespace ToDoList
             }
         }
 
+        private void btnChart_Click(object sender, EventArgs e)
+        {
 
+            Chart ChartForm = new Chart();
+            
+            ChartForm.ShowDialog(); 
 
+        }
+
+        private void btnApi_Click(object sender, EventArgs e)
+        {
+            API ApiForm = new API();
+
+            ApiForm.ShowDialog();
+
+        }
     }
 }

@@ -19,3 +19,4 @@ C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.csproj.GenerateRes
 C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
 C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.exe
 C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\skyjs\source\repos\team8\ToDoList\obj\Debug\ToDoList.Chart.resources

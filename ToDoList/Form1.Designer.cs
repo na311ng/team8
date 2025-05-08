@@ -42,6 +42,8 @@
             this.calendar = new System.Windows.Forms.MonthCalendar();
             this.panel = new System.Windows.Forms.Panel();
             this.btnAddSchedule = new System.Windows.Forms.Button();
+            this.btnChart = new System.Windows.Forms.Button();
+            this.btnApi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.toDoListView)).BeginInit();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -168,11 +170,33 @@
             this.btnAddSchedule.UseVisualStyleBackColor = true;
             this.btnAddSchedule.Click += new System.EventHandler(this.btnAddSchedule_Click);
             // 
+            // btnChart
+            // 
+            this.btnChart.Location = new System.Drawing.Point(435, 53);
+            this.btnChart.Name = "btnChart";
+            this.btnChart.Size = new System.Drawing.Size(75, 23);
+            this.btnChart.TabIndex = 12;
+            this.btnChart.Text = "차트";
+            this.btnChart.UseVisualStyleBackColor = true;
+            this.btnChart.Click += new System.EventHandler(this.btnChart_Click);
+            // 
+            // btnApi
+            // 
+            this.btnApi.Location = new System.Drawing.Point(677, 53);
+            this.btnApi.Name = "btnApi";
+            this.btnApi.Size = new System.Drawing.Size(75, 23);
+            this.btnApi.TabIndex = 13;
+            this.btnApi.Text = "Api";
+            this.btnApi.UseVisualStyleBackColor = true;
+            this.btnApi.Click += new System.EventHandler(this.btnApi_Click);
+            // 
             // ToDoList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(848, 524);
+            this.Controls.Add(this.btnApi);
+            this.Controls.Add(this.btnChart);
             this.Controls.Add(this.btnAddSchedule);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.toDoListView);
@@ -210,6 +234,8 @@
         private System.Windows.Forms.MonthCalendar calendar;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Button btnAddSchedule;
+        private System.Windows.Forms.Button btnChart;
+        private System.Windows.Forms.Button btnApi;
     }
 }
 
