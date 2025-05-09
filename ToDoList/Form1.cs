@@ -182,9 +182,9 @@ namespace ToDoList
         private void btnChart_Click(object sender, EventArgs e)
         {
 
-            Chart ChartForm = new Chart();
-            
-            ChartForm.ShowDialog(); 
+            DateTime selectedDate = calendar.SelectionStart; // 달력에서 선택된 날짜
+            Chart chartForm = new Chart(todoList, selectedDate);
+            chartForm.ShowDialog();
 
         }
 
