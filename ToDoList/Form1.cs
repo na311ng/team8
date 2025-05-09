@@ -19,8 +19,50 @@ namespace ToDoList
 
         //데이터를 데이터 테이블에 저장 후 데이터 그리드 뷰에서 볼 수 있도록 함
         DataTable todoList = new DataTable();
+        DataTable filteredList = new DataTable();
         //현재 데이터를 수정 중인가 
         bool isEditing = false;
+
+        private void ToDoList_Load(object sender, EventArgs e)
+        {
+            //제목, 설명, 시작날짜, 종료날짜 추가
+            todoList.Columns.Add("Title");
+            todoList.Columns.Add("Description");
+            todoList.Columns.Add("Start", typeof(DateTime));
+            todoList.Columns.Add("End", typeof(DateTime));
+            todoList.Columns.Add("IsCompleted", typeof(bool));
+
+            //체크박스 추가
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn
+            {
+                HeaderText = "완료 여부",
+                Name = "IsCompleted",
+                DataPropertyName = "IsCompleted"
+            };
+            toDoListView.Columns.Add(checkBoxColumn);
+
+            toDoListView.AllowUserToAddRows = false;
+            toDoListView.DataSource = todoList;
+
+            //체크박스 열의 너비 수정, 그리드에 데이터를 넣은 후에 너비 설정
+            toDoListView.Columns[0].Width = 100;
+            toDoListView.RowHeadersWidth = 80;
+
+            calendar.DateChanged += calendar_DateChanged;  // 날짜 클릭 이벤트 연결
+
+        }
+
+        private void calendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            DateTime selectedDate = e.Start.Date;
+            string filter = $"#{selectedDate:MM/dd/yyyy}# >= Start AND #{selectedDate:MM/dd/yyyy}# <= End";
+
+            DataView view = new DataView(todoList);
+            view.RowFilter = filter;
+
+            toDoListView.DataSource = view;
+        }
+
         private void btnAddSchedule_Click(object sender, EventArgs e)
         {
             using (var form = new AddScheduleForm())
@@ -32,7 +74,8 @@ namespace ToDoList
                         form.ScheduleTitle,
                         form.ScheduleDescription,
                         form.StartDate,
-                        form.EndDate
+                        form.EndDate,
+                        false
                     );
 
                     // 달력에 시작일 강조
@@ -42,35 +85,11 @@ namespace ToDoList
             }
         }
 
-        private void ToDoList_Load(object sender, EventArgs e)
-        {
-            //제목, 설명, 시작날짜, 종료날짜 추가
-            todoList.Columns.Add("Title");
-            todoList.Columns.Add("Description");
-            todoList.Columns.Add("Start", typeof(DateTime));
-            todoList.Columns.Add("End",typeof(DateTime));
-
-            //체크박스 추가
-            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
-            checkBoxColumn.HeaderText = "완료 여부";
-            checkBoxColumn.Name = "IsCompleted";
-            toDoListView.Columns.Add(checkBoxColumn);
-
-            toDoListView.AllowUserToAddRows = false;
-
-            toDoListView.DataSource = todoList;
-
-            //체크박스 열의 너비 수정, 그리드에 데이터를 넣은 후에 너비 설정
-            toDoListView.Columns[0].Width = 100;
-            toDoListView.RowHeadersWidth = 80;
-        }
-
         private void editButton_Click(object sender, EventArgs e)
         {
 
             try
             {
-                //셀을 선택하지 않았거나 항목이 존재하지 않는 경우
                 if (toDoListView.CurrentCell == null || toDoListView.CurrentCell.RowIndex < 0)
                 {
                     MessageBox.Show("수정할 항목을 먼저 선택하세요.");
@@ -79,11 +98,11 @@ namespace ToDoList
 
                 isEditing = true;
 
-                //선택된 셀들을 텍스트 박스로 올림
-                titleTextBox.Text = todoList.Rows[toDoListView.CurrentCell.RowIndex].ItemArray[0].ToString();
-                descriptionTextBox.Text = todoList.Rows[toDoListView.CurrentCell.RowIndex].ItemArray[1].ToString();
+                var row = ((DataRowView)toDoListView.CurrentRow.DataBoundItem).Row;
+                titleTextBox.Text = row["Title"].ToString();
+                descriptionTextBox.Text = row["Description"].ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex);
             }
@@ -93,16 +112,16 @@ namespace ToDoList
         {
             try
             {
-                //셀을 선택하지 않았거나 항목이 존재하지 않는 경우
                 if (toDoListView.CurrentCell == null || toDoListView.CurrentCell.RowIndex < 0)
                 {
-                    MessageBox.Show("삭제될 항목을 먼저 선택하세요.");
+                    MessageBox.Show("삭제할 항목을 먼저 선택하세요.");
                     return;
                 }
 
-                todoList.Rows[toDoListView.CurrentCell.RowIndex].Delete(); //선택 셀 삭제
+                var row = ((DataRowView)toDoListView.CurrentRow.DataBoundItem).Row;
+                row.Delete();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex);
             }
@@ -120,10 +139,11 @@ namespace ToDoList
             if (isEditing)
             {
                 //edit 선택된 셀을 수정
-                todoList.Rows[toDoListView.CurrentCell.RowIndex]["Title"] = titleTextBox.Text;
-                todoList.Rows[toDoListView.CurrentCell.RowIndex]["Description"] = descriptionTextBox.Text;
-                todoList.Rows[toDoListView.CurrentCell.RowIndex]["Start"] = calendar.SelectionStart.Date;
-                todoList.Rows[toDoListView.CurrentCell.RowIndex]["End"] = calendar.SelectionEnd.Date;
+                var row = ((DataRowView)toDoListView.CurrentRow.DataBoundItem).Row;
+                row["Title"] = titleTextBox.Text;
+                row["Description"] = descriptionTextBox.Text;
+                row["Start"] = calendar.SelectionStart.Date;
+                row["End"] = calendar.SelectionEnd.Date;
             }
             else
             {
@@ -132,7 +152,8 @@ namespace ToDoList
                     titleTextBox.Text,
                     descriptionTextBox.Text,
                     calendar.SelectionStart.Date,
-                    calendar.SelectionEnd.Date
+                    calendar.SelectionEnd.Date,
+                    false
                 );
             }
             //초기화
@@ -174,5 +195,7 @@ namespace ToDoList
             ApiForm.ShowDialog();
 
         }
+
+        
     }
 }
