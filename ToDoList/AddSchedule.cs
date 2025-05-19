@@ -17,10 +17,31 @@ namespace ToDoList
 
         }
         DataTable todoList = new DataTable();
-        public string ScheduleTitle => txtTitle.Text;
-        public string ScheduleDescription => txtDescription.Text;
-        public DateTime StartDate => dtpStart.Value.Date;
-        public DateTime EndDate => dtpEnd.Value.Date;
+        public string ScheduleTitle
+        {
+            get { return txtTitle.Text; }
+            set { txtTitle.Text = value; }
+        }
+
+        public string ScheduleDescription
+        {
+            get { return txtDescription.Text; }
+            set { txtDescription.Text = value; }
+        }
+
+        public DateTime StartDate
+        {
+            get { return dtpStart.Value; }
+            set { dtpStart.Value = value; }
+        }
+
+        public DateTime EndDate
+        {
+            get { return dtpEnd.Value; }
+            set { dtpEnd.Value = value; }
+        }
+
+
 
         public AddScheduleForm()
         {

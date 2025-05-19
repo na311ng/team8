@@ -138,6 +138,7 @@
             this.toDoListView.Size = new System.Drawing.Size(1071, 576);
             this.toDoListView.TabIndex = 9;
             this.toDoListView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.toDoListView_CellBeginEdit);
+            this.toDoListView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellDoubleClick);
             // 
             // timerSliding
             // 

@@ -24,6 +24,8 @@ namespace ToDoList
         bool isEditing = false;
         //현재 exe 파일이 저장되어 있는 경로
         string filePath = Path.Combine(Application.StartupPath, "todolist.xml");
+        //카테고리 리스트
+        List<string> categories = new List<string> { };
 
 
 
@@ -36,11 +38,37 @@ namespace ToDoList
             todoList.Columns.Add("End", typeof(DateTime));
             todoList.Columns.Add("IsCompleted", typeof(bool));
 
+            //카테고리 컬럼 추가
+            todoList.Columns.Add("Category", typeof(string));
+            //URL 컬럼
+            todoList.Columns.Add("URL", typeof(string));
 
 
+            //카테고리 콤보박스 컬럼 생성
+            DataGridViewComboBoxColumn categoryColumn = new DataGridViewComboBoxColumn();
+            categoryColumn.HeaderText = "Category";
+            categoryColumn.Name = "Category";
+            categoryColumn.DataPropertyName = "Category"; //데이터 테이블 연결
+
+
+            //그리드뷰에 생성
             toDoListView.AllowUserToAddRows = false;
             toDoListView.DataSource = todoList;
 
+            //그리드뷰에서 ULR이 보이지 않도록 설정 (투두리스트가 생성 후에 설정)
+            toDoListView.Columns["URL"].Visible = false;
+
+            // 전체를 읽기 전용으로 설정하지 말고
+            toDoListView.ReadOnly = false; // 전체는 편집 가능 상태로
+
+            // 특정 컬럼은 읽기 전용으로 설정
+            foreach (DataGridViewColumn col in toDoListView.Columns)
+            {
+                if (col.Name != "IsCompleted")
+                    col.ReadOnly = true;
+                else
+                    col.ReadOnly = false; // 체크박스만 편집 가능
+            }
 
             calendar.DateChanged += calendar_DateChanged;  // 날짜 클릭 이벤트 연결
 
@@ -220,6 +248,10 @@ namespace ToDoList
                     e.Cancel = true;
                 }
             }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void btnChart_Click(object sender, EventArgs e)
@@ -237,6 +269,34 @@ namespace ToDoList
 
             ApiForm.ShowDialog();
 
+        }
+
+        private void toDoListView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // 헤더 등 무시
+
+            var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
+
+            using (var form = new AddScheduleForm())
+            {
+                // 기존 데이터를 폼에 미리 넣어줄 수 있으면 좋음
+                form.ScheduleTitle = row["Title"].ToString();
+                form.ScheduleDescription = row["Description"].ToString();
+                form.StartDate = (DateTime)row["Start"];
+                form.EndDate = (DateTime)row["End"];
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    // 수정 완료 후 DataRow에 반영
+                    row["Title"] = form.ScheduleTitle;
+                    row["Description"] = form.ScheduleDescription;
+                    row["Start"] = form.StartDate;
+                    row["End"] = form.EndDate;
+
+                    // DataGridView 자동 갱신
+                    toDoListView.Refresh();
+                }
+            }
         }
 
     }
