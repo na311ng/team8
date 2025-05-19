@@ -51,48 +51,54 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("굴림", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(314, 6);
+            this.label1.Location = new System.Drawing.Point(408, 8);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(819, 111);
+            this.label1.Size = new System.Drawing.Size(1065, 148);
             this.label1.TabIndex = 0;
             this.label1.Text = "To Do List";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // titleTextBox
             // 
-            this.titleTextBox.Location = new System.Drawing.Point(314, 140);
+            this.titleTextBox.Location = new System.Drawing.Point(408, 187);
+            this.titleTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(823, 28);
+            this.titleTextBox.Size = new System.Drawing.Size(1069, 35);
             this.titleTextBox.TabIndex = 1;
             // 
             // descriptionTextBox
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(314, 192);
+            this.descriptionTextBox.Location = new System.Drawing.Point(408, 256);
+            this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(823, 28);
+            this.descriptionTextBox.Size = new System.Drawing.Size(1069, 35);
             this.descriptionTextBox.TabIndex = 2;
             // 
             // Description
             // 
-            this.Description.Location = new System.Drawing.Point(314, 168);
+            this.Description.Location = new System.Drawing.Point(408, 224);
+            this.Description.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Description.Name = "Description";
-            this.Description.Size = new System.Drawing.Size(821, 18);
+            this.Description.Size = new System.Drawing.Size(1067, 24);
             this.Description.TabIndex = 3;
             this.Description.Text = "Description:";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(314, 118);
+            this.label2.Location = new System.Drawing.Point(408, 157);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(821, 18);
+            this.label2.Size = new System.Drawing.Size(1067, 24);
             this.label2.TabIndex = 4;
             this.label2.Text = "Title:";
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(314, 222);
+            this.editButton.Location = new System.Drawing.Point(408, 296);
+            this.editButton.Margin = new System.Windows.Forms.Padding(4);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(257, 48);
+            this.editButton.Size = new System.Drawing.Size(334, 64);
             this.editButton.TabIndex = 6;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -100,9 +106,10 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(576, 222);
+            this.deleteButton.Location = new System.Drawing.Point(749, 296);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(4);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(279, 48);
+            this.deleteButton.Size = new System.Drawing.Size(363, 64);
             this.deleteButton.TabIndex = 7;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -110,9 +117,10 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(859, 222);
+            this.saveButton.Location = new System.Drawing.Point(1117, 296);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(279, 48);
+            this.saveButton.Size = new System.Drawing.Size(363, 64);
             this.saveButton.TabIndex = 8;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -122,11 +130,12 @@
             // 
             this.toDoListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.toDoListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.toDoListView.Location = new System.Drawing.Point(314, 276);
+            this.toDoListView.Location = new System.Drawing.Point(408, 368);
+            this.toDoListView.Margin = new System.Windows.Forms.Padding(4);
             this.toDoListView.Name = "toDoListView";
             this.toDoListView.RowHeadersWidth = 82;
             this.toDoListView.RowTemplate.Height = 37;
-            this.toDoListView.Size = new System.Drawing.Size(824, 432);
+            this.toDoListView.Size = new System.Drawing.Size(1071, 576);
             this.toDoListView.TabIndex = 9;
             this.toDoListView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.toDoListView_CellBeginEdit);
             // 
@@ -136,8 +145,8 @@
             // 
             // calendar
             // 
-            this.calendar.Location = new System.Drawing.Point(7, 6);
-            this.calendar.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.calendar.Location = new System.Drawing.Point(9, 8);
+            this.calendar.Margin = new System.Windows.Forms.Padding(9, 8, 9, 8);
             this.calendar.MaxSelectionCount = 1;
             this.calendar.Name = "calendar";
             this.calendar.TabIndex = 0;
@@ -148,16 +157,17 @@
             this.panel.Controls.Add(this.calendar);
             this.panel.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel.Location = new System.Drawing.Point(0, 0);
+            this.panel.Margin = new System.Windows.Forms.Padding(4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(309, 786);
+            this.panel.Size = new System.Drawing.Size(402, 1048);
             this.panel.TabIndex = 10;
             // 
             // btnAddSchedule
             // 
-            this.btnAddSchedule.Location = new System.Drawing.Point(317, 80);
-            this.btnAddSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddSchedule.Location = new System.Drawing.Point(412, 107);
+            this.btnAddSchedule.Margin = new System.Windows.Forms.Padding(5);
             this.btnAddSchedule.Name = "btnAddSchedule";
-            this.btnAddSchedule.Size = new System.Drawing.Size(107, 34);
+            this.btnAddSchedule.Size = new System.Drawing.Size(139, 45);
             this.btnAddSchedule.TabIndex = 11;
             this.btnAddSchedule.Text = "일정추가";
             this.btnAddSchedule.UseVisualStyleBackColor = true;
@@ -165,10 +175,10 @@
             // 
             // btnChart
             // 
-            this.btnChart.Location = new System.Drawing.Point(621, 80);
-            this.btnChart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChart.Location = new System.Drawing.Point(807, 107);
+            this.btnChart.Margin = new System.Windows.Forms.Padding(5);
             this.btnChart.Name = "btnChart";
-            this.btnChart.Size = new System.Drawing.Size(107, 34);
+            this.btnChart.Size = new System.Drawing.Size(139, 45);
             this.btnChart.TabIndex = 12;
             this.btnChart.Text = "차트";
             this.btnChart.UseVisualStyleBackColor = true;
@@ -176,10 +186,10 @@
             // 
             // btnApi
             // 
-            this.btnApi.Location = new System.Drawing.Point(967, 80);
-            this.btnApi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnApi.Location = new System.Drawing.Point(1257, 107);
+            this.btnApi.Margin = new System.Windows.Forms.Padding(5);
             this.btnApi.Name = "btnApi";
-            this.btnApi.Size = new System.Drawing.Size(107, 34);
+            this.btnApi.Size = new System.Drawing.Size(139, 45);
             this.btnApi.TabIndex = 13;
             this.btnApi.Text = "Api";
             this.btnApi.UseVisualStyleBackColor = true;
@@ -187,9 +197,9 @@
             // 
             // ToDoList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1211, 786);
+            this.ClientSize = new System.Drawing.Size(1574, 1048);
             this.Controls.Add(this.btnApi);
             this.Controls.Add(this.btnChart);
             this.Controls.Add(this.btnAddSchedule);
@@ -203,8 +213,10 @@
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ToDoList";
             this.Text = "To Do List";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ToDoList_FormClosed);
             this.Load += new System.EventHandler(this.ToDoList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.toDoListView)).EndInit();
             this.panel.ResumeLayout(false);

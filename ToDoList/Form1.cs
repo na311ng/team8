@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,13 @@ namespace ToDoList
         }
 
         //데이터를 데이터 테이블에 저장 후 데이터 그리드 뷰에서 볼 수 있도록 함
-        DataTable todoList = new DataTable();
-        DataTable filteredList = new DataTable();
+        DataTable todoList = new DataTable("ToDoList");
         //현재 데이터를 수정 중인가 
         bool isEditing = false;
+        //현재 exe 파일이 저장되어 있는 경로
+        string filePath = Path.Combine(Application.StartupPath, "todolist.xml");
+
+
 
         private void ToDoList_Load(object sender, EventArgs e)
         {
@@ -32,25 +36,64 @@ namespace ToDoList
             todoList.Columns.Add("End", typeof(DateTime));
             todoList.Columns.Add("IsCompleted", typeof(bool));
 
-            //체크박스 추가
-            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn
-            {
-                HeaderText = "완료 여부",
-                Name = "IsCompleted",
-                DataPropertyName = "IsCompleted"
-            };
-            toDoListView.Columns.Add(checkBoxColumn);
+
 
             toDoListView.AllowUserToAddRows = false;
             toDoListView.DataSource = todoList;
 
-            //체크박스 열의 너비 수정, 그리드에 데이터를 넣은 후에 너비 설정
-            toDoListView.Columns[0].Width = 100;
-            toDoListView.RowHeadersWidth = 80;
 
             calendar.DateChanged += calendar_DateChanged;  // 날짜 클릭 이벤트 연결
 
+            //폼 로드 시 저장된 파일로부터 데이터 로드
+            LoadFromFile(filePath);
         }
+
+        //저장 기능//
+        private void SaveToFile(string path)
+        {
+            try
+            {
+                if(todoList.Rows.Count == 0) //테이블이 비어있으면
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        ds.Tables.Add(todoList.Clone()); //스키마만 저장 (테이블이 비어있을 때 빈 파일을 생성하기 위해)
+                        ds.WriteXml(path, XmlWriteMode.WriteSchema);
+                    }
+                }
+                else
+                {
+                    todoList.WriteXml(path, XmlWriteMode.WriteSchema);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("파일 저장 실패: " + ex.Message);
+            }
+
+        }
+        private void LoadFromFile(string path)
+        {
+            if (!File.Exists(path)) return; //파일이 존재하지 않으면 리턴
+            try
+            {
+                if (File.Exists(path))
+                {
+                    todoList.ReadXml(path); //경로의 xml파일을 읽음
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("파일 불러오기 실패: " + ex.Message);
+            }
+        }
+
+        private void ToDoList_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //닫을 때 저장
+            SaveToFile(filePath);
+        }
+
 
         private void calendar_DateChanged(object sender, DateRangeEventArgs e)
         {
@@ -164,7 +207,7 @@ namespace ToDoList
             isEditing = false;
 
         }
-
+        
         //빈 셀은 체크박스 비활성화
         private void toDoListView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
@@ -196,6 +239,5 @@ namespace ToDoList
 
         }
 
-        
     }
 }

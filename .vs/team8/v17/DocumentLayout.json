@@ -1,12 +1,23 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\skyjs\\source\\repos\\team8\\",
+  "WorkspaceRootPath": "C:\\Users\\xodml\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uD321\uD321\\3-1\\\uC751\uC6A9\uC18C\uD504\uD2B8\uC6E8\uC5B4\uC2E4\uC2B5\\\uD300\uD504\uB85C\uC81D\uD2B8\\team8\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
