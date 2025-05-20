@@ -156,28 +156,7 @@ namespace ToDoList
             }
         }
 
-        private void editButton_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-                if (toDoListView.CurrentCell == null || toDoListView.CurrentCell.RowIndex < 0)
-                {
-                    MessageBox.Show("수정할 항목을 먼저 선택하세요.");
-                    return;
-                }
-
-                isEditing = true;
-
-                var row = ((DataRowView)toDoListView.CurrentRow.DataBoundItem).Row;
-                titleTextBox.Text = row["Title"].ToString();
-                descriptionTextBox.Text = row["Description"].ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex);
-            }
-        }
+        
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -198,43 +177,7 @@ namespace ToDoList
             }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            //텍스트 박스가 비어있는 경우
-            if (string.IsNullOrWhiteSpace(titleTextBox.Text) || string.IsNullOrWhiteSpace(descriptionTextBox.Text))
-            {
-                MessageBox.Show("제목과 설명이 비어있습니다.");
-                return;
-            }
-
-            if (isEditing)
-            {
-                //edit 선택된 셀을 수정
-                var row = ((DataRowView)toDoListView.CurrentRow.DataBoundItem).Row;
-                row["Title"] = titleTextBox.Text;
-                row["Description"] = descriptionTextBox.Text;
-                row["Start"] = calendar.SelectionStart.Date;
-                row["End"] = calendar.SelectionEnd.Date;
-            }
-            else
-            {
-                //열 추가
-                todoList.Rows.Add(
-                    titleTextBox.Text,
-                    descriptionTextBox.Text,
-                    calendar.SelectionStart.Date,
-                    calendar.SelectionEnd.Date,
-                    false
-                );
-            }
-            //초기화
-            titleTextBox.Text = "";
-            descriptionTextBox.Text = "";
-            calendar.SelectionStart = calendar.TodayDate;
-            calendar.SelectionEnd = calendar.TodayDate;
-            isEditing = false;
-
-        }
+        
         
         //빈 셀은 체크박스 비활성화
         private void toDoListView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)

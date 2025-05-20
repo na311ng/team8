@@ -45,3 +45,15 @@ C:\Users\xodml\OneDrive\바탕 화면\팡팡\3-1\응용소프트웨어실습\팀
 C:\Users\xodml\OneDrive\바탕 화면\팡팡\3-1\응용소프트웨어실습\팀프로젝트\team8\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
 C:\Users\xodml\OneDrive\바탕 화면\팡팡\3-1\응용소프트웨어실습\팀프로젝트\team8\ToDoList\obj\Debug\ToDoList.exe
 C:\Users\xodml\OneDrive\바탕 화면\팡팡\3-1\응용소프트웨어실습\팀프로젝트\team8\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.csproj.AssemblyReference.cache
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.AddScheduleForm.resources
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.Chart.resources
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.ToDoList.resources
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.Properties.Resources.resources
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.csproj.GenerateResource.cache
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.exe
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\bin\Debug\ToDoList.exe.config
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\bin\Debug\ToDoList.exe
+C:\Users\skyjs\source\repos\team8\새 폴더\ToDoList\bin\Debug\ToDoList.pdb
