@@ -36,6 +36,7 @@ namespace ToDoList
             todoList.Columns.Add("Description", typeof(string));
             todoList.Columns.Add("Start", typeof(DateTime));
             todoList.Columns.Add("End", typeof(DateTime));
+            todoList.Columns.Add("Priority", typeof(int));
             todoList.Columns.Add("IsCompleted", typeof(bool));
             todoList.Columns.Add("Category", typeof(string));
             todoList.Columns.Add("URL", typeof(string));
@@ -141,6 +142,7 @@ namespace ToDoList
         {
             using (var form = new AddScheduleForm())
             {
+                form.SetPriorityRange(todoList.Rows.Count);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     // 일정 저장
@@ -149,9 +151,10 @@ namespace ToDoList
                         form.ScheduleDescription,
                         form.StartDate,
                         form.EndDate,
+                        form.Priority,
                         false
                     );
-
+                    SortTodoListByPriority();
                     // 달력에 시작일 강조
                     calendar.AddBoldedDate(form.StartDate);
                     calendar.UpdateBoldedDates();
@@ -287,5 +290,17 @@ namespace ToDoList
                 }
             }
         }
+        
+        private void SortTodoListByPriority()
+        {
+            // DataTable 필터 또는 소팅
+            todoList.DefaultView.Sort = "Priority ASC";
+            DataTable sorted = todoList.DefaultView.ToTable();
+            todoList.Clear();
+            foreach (DataRow row in sorted.Rows)
+                todoList.ImportRow(row);
+            toDoListView.DataSource = todoList; // DataSource 갱신
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <NewDataSet>
   <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="ToDoList" msdata:UseCurrentLocale="true">
       <xs:complexType>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="ToDoList">
@@ -11,6 +11,7 @@
                 <xs:element name="Description" type="xs:string" minOccurs="0" />
                 <xs:element name="Start" type="xs:dateTime" minOccurs="0" />
                 <xs:element name="End" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Priority" type="xs:int" minOccurs="0" />
                 <xs:element name="IsCompleted" type="xs:boolean" minOccurs="0" />
                 <xs:element name="Category" type="xs:string" minOccurs="0" />
                 <xs:element name="URL" type="xs:string" minOccurs="0" />
@@ -22,4 +23,30 @@
       </xs:complexType>
     </xs:element>
   </xs:schema>
+  <ToDoList>
+    <Title>aaa</Title>
+    <Description />
+    <Start>2025-05-21T00:00:00+09:00</Start>
+    <End>2025-05-23T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <CompletedDate>2025-05-23T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>abc</Title>
+    <Description />
+    <Start>2025-05-23T00:00:00+09:00</Start>
+    <End>2025-05-23T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <CompletedDate>2025-05-23T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>asdf</Title>
+    <Description />
+    <Start>2025-05-23T00:00:00+09:00</Start>
+    <End>2025-05-23T00:00:00+09:00</End>
+    <Priority>2</Priority>
+    <IsCompleted>false</IsCompleted>
+  </ToDoList>
 </NewDataSet>
