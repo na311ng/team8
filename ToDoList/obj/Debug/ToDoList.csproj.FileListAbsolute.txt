@@ -70,3 +70,4 @@ C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.csproj.Generate
 C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.csproj.CoreCompileInputs.cache
 C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.exe
 C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.PeriodSelectForm.resources

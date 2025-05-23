@@ -3,11 +3,14 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Linq;
 
 namespace ToDoList
 {
+    public enum ChartPeriod { All, Week, Month }
     public partial class Chart : Form
     {
+        
         private DataTable todoList;
         private DateTime selectedDate;
 
@@ -22,7 +25,8 @@ namespace ToDoList
         private void Chart_Load(object sender, EventArgs e)
         {
             SetupChart();
-            CalculateCompletionRates();
+            chart1.Series.Clear();      
+            chart1.Titles.Clear();
         }
 
         private void SetupChart()
@@ -92,6 +96,69 @@ namespace ToDoList
 
                 double percent = total == 0 ? 0 : (double)completed / total * 100;
                 series.Points.AddXY(label, percent);
+            }
+        }
+        private void ShowPriorityCompletionChart(ChartPeriod period)
+        {
+            
+            DateTime today = DateTime.Today;
+            DateTime start = today, end = today;
+            if (period == ChartPeriod.Week)
+                start = today.AddDays(-6);
+            else if (period == ChartPeriod.Month)
+                start = new DateTime(today.Year, today.Month, 1);
+
+            var srcRows = todoList.AsEnumerable()
+                .Where(row => row.RowState != DataRowState.Deleted);
+
+            if (period != ChartPeriod.All)
+                srcRows = srcRows.Where(row =>
+                    row.Field<DateTime>("Start") <= end &&
+                    row.Field<DateTime>("End") >= start);
+
+            var priorityGroups = srcRows
+                .GroupBy(row => row.Field<int>("Priority"))
+                .OrderBy(g => g.Key);
+
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            chart1.Titles.Add("우선순위별 달성률(%)");
+
+            Series series = new Series("달성률")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.Orange
+            };
+
+            foreach (var grp in priorityGroups)
+            {
+                int total = grp.Count();
+                int completed = grp.Count(row => row.Field<bool>("IsCompleted"));
+                double percent = (total == 0) ? 0 : completed * 100.0 / total;
+                series.Points.AddXY(grp.Key.ToString(), percent);
+            }
+
+            chart1.Series.Add(series);
+        }
+        private void btnCompletionChart_Click(object sender, EventArgs e)
+        {
+            SetupChart();
+            CalculateCompletionRates();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var form = new PeriodSelectForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    ChartPeriod period = ChartPeriod.All;
+                    string selected = form.SelectedPeriod;
+                    if (selected == "이번주") period = ChartPeriod.Week;
+                    else if (selected == "이번달") period = ChartPeriod.Month;
+
+                    ShowPriorityCompletionChart(period);
+                }
             }
         }
     }
