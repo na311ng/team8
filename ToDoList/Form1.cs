@@ -31,35 +31,25 @@ namespace ToDoList
 
         private void ToDoList_Load(object sender, EventArgs e)
         {
-            //제목, 설명, 시작날짜, 종료날짜 추가
-            todoList.Columns.Add("Title");
-            todoList.Columns.Add("Description");
+            // 컬럼 정의
+            todoList.Columns.Add("Title", typeof(string));
+            todoList.Columns.Add("Description", typeof(string));
             todoList.Columns.Add("Start", typeof(DateTime));
             todoList.Columns.Add("End", typeof(DateTime));
             todoList.Columns.Add("IsCompleted", typeof(bool));
-
-            //카테고리 컬럼 추가
             todoList.Columns.Add("Category", typeof(string));
-            //URL 컬럼
             todoList.Columns.Add("URL", typeof(string));
 
-
-            //카테고리 콤보박스 컬럼 생성
-            DataGridViewComboBoxColumn categoryColumn = new DataGridViewComboBoxColumn();
-            categoryColumn.HeaderText = "Category";
-            categoryColumn.Name = "Category";
-            categoryColumn.DataPropertyName = "Category"; //데이터 테이블 연결
-
+            if (!todoList.Columns.Contains("CompletedDate"))
+                todoList.Columns.Add("CompletedDate", typeof(DateTime));
 
             //그리드뷰에 생성
-            toDoListView.AllowUserToAddRows = false;
             toDoListView.DataSource = todoList;
+            toDoListView.AllowUserToAddRows = false;
 
             //그리드뷰에서 ULR이 보이지 않도록 설정 (투두리스트가 생성 후에 설정)
-            toDoListView.Columns["URL"].Visible = false;
-
-            // 전체를 읽기 전용으로 설정하지 말고
-            toDoListView.ReadOnly = false; // 전체는 편집 가능 상태로
+            if (toDoListView.Columns["URL"] != null)
+                toDoListView.Columns["URL"].Visible = false;
 
             // 특정 컬럼은 읽기 전용으로 설정
             foreach (DataGridViewColumn col in toDoListView.Columns)
@@ -71,6 +61,16 @@ namespace ToDoList
             }
 
             calendar.DateChanged += calendar_DateChanged;  // 날짜 클릭 이벤트 연결
+
+
+            //카테고리 콤보박스 컬럼 생성
+            DataGridViewComboBoxColumn categoryColumn = new DataGridViewComboBoxColumn();
+            categoryColumn.HeaderText = "Category";
+            categoryColumn.Name = "Category";
+            categoryColumn.DataPropertyName = "Category"; //데이터 테이블 연결
+
+            // 전체를 읽기 전용으로 설정하지 말고
+            toDoListView.ReadOnly = false; // 전체는 편집 가능 상태로
 
             //폼 로드 시 저장된 파일로부터 데이터 로드
             LoadFromFile(filePath);
@@ -128,6 +128,9 @@ namespace ToDoList
             DateTime selectedDate = e.Start.Date;
             string filter = $"#{selectedDate:MM/dd/yyyy}# >= Start AND #{selectedDate:MM/dd/yyyy}# <= End";
 
+            // 완료된 날짜 이후는 표시하지 않도록
+            filter += $" AND (CompletedDate IS NULL OR CompletedDate >= #{selectedDate:MM/dd/yyyy}#)";
+
             DataView view = new DataView(todoList);
             view.RowFilter = filter;
 
@@ -176,27 +179,7 @@ namespace ToDoList
                 Console.WriteLine("Error: " + ex);
             }
         }
-
         
-        
-        //빈 셀은 체크박스 비활성화
-        private void toDoListView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (toDoListView.Columns[e.ColumnIndex].Name == "IsCompleted")
-            {
-                var taskName = toDoListView.Rows[e.RowIndex].Cells["Title"].Value?.ToString();
-
-                if (string.IsNullOrWhiteSpace(taskName))
-                {
-                    e.Cancel = true;
-                }
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-        }
-
         private void btnChart_Click(object sender, EventArgs e)
         {
 
@@ -242,5 +225,67 @@ namespace ToDoList
             }
         }
 
+        private void toDoListView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (toDoListView.Columns[e.ColumnIndex].Name == "IsCompleted")
+            {
+                var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
+                bool isChecked = Convert.ToBoolean(row["IsCompleted"]);
+
+                DateTime selectedDate = calendar.SelectionStart.Date;
+
+                if (isChecked)
+                {
+                    // 완료 날짜를 체크한 날짜로 설정
+                    row["CompletedDate"] = selectedDate;
+                }
+                else
+                {
+                    // 체크 해제 시 완료 날짜 초기화
+                    row["CompletedDate"] = DBNull.Value;
+                }
+
+                toDoListView.Refresh();
+            }
+        }
+
+        private void toDoListView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (toDoListView.Columns[e.ColumnIndex].Name == "IsCompleted")
+            {
+                var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
+
+                if (row.RowState == DataRowState.Deleted) return;
+
+                DateTime selected = calendar.SelectionStart.Date;
+                var completedDate = row["CompletedDate"] as DateTime?;
+
+                if (completedDate != null)
+                {
+                    if (selected > completedDate.Value)
+                    {
+                        e.CellStyle.ForeColor = Color.Gray;  // 완료 이후 날짜는 회색
+                        e.CellStyle.SelectionForeColor = Color.Gray;
+                    }
+                    else if (selected == completedDate.Value)
+                    {
+                        e.CellStyle.ForeColor = Color.Black; // 완료한 당일은 일반 글씨
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                    }
+                    else
+                    {
+                        e.CellStyle.ForeColor = Color.Black; // 완료 전 날짜는 기본
+                        e.CellStyle.SelectionForeColor = Color.Black;
+                        e.Value = false; // 체크 표시 안 함
+                    }
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Black;
+                    e.CellStyle.SelectionForeColor = Color.Black;
+                    e.Value = false; // 완료 날짜 없으면 체크 안 됨
+                }
+            }
+        }
     }
 }

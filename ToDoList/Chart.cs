@@ -15,7 +15,7 @@ namespace ToDoList
         {
             InitializeComponent();
             this.todoList = todoList;
-            this.selectedDate = selectedDate;
+            this.selectedDate = selectedDate.Date;
             this.Load += Chart_Load;
         }
 
@@ -39,25 +39,27 @@ namespace ToDoList
             chartArea.AxisY.Minimum = 0;
             chart1.ChartAreas.Add(chartArea);
 
-            Series series = new Series("Completion Rate");
-            series.ChartType = SeriesChartType.Column; // Bar → horizontal, Column → vertical
-            series.Color = Color.LightBlue;
-            series.BorderWidth = 2;
+            Series series = new Series("Completion Rate")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.LightBlue,
+                BorderWidth = 2
+            };
             chart1.Series.Add(series);
         }
 
         private void CalculateCompletionRates()
         {
-            // 기준일로부터 이번 주 월요일 계산
             int diff = (7 + (selectedDate.DayOfWeek - DayOfWeek.Monday)) % 7;
-            DateTime weekStart = selectedDate.AddDays(-1 * diff); // 월요일
+            DateTime weekStart = selectedDate.AddDays(-diff);
 
             Series series = chart1.Series["Completion Rate"];
+            series.Points.Clear();
 
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = weekStart.AddDays(i);
-                string label = $"{day:ddd}\n({day:MM/dd})"; // e.g., Mon\n(05/06)
+                string label = $"{day:ddd}\n({day:MM/dd})";
 
                 int total = 0;
                 int completed = 0;
@@ -69,20 +71,26 @@ namespace ToDoList
                     DateTime start = Convert.ToDateTime(row["Start"]);
                     DateTime end = Convert.ToDateTime(row["End"]);
 
-                    // 이 날짜에 해당하는 일정만 집계
                     if (day >= start && day <= end)
                     {
                         total++;
+
                         if (todoList.Columns.Contains("IsCompleted") &&
                             row["IsCompleted"] != DBNull.Value &&
                             Convert.ToBoolean(row["IsCompleted"]))
                         {
-                            completed++;
+                            var completedDate = row["CompletedDate"] as DateTime?;
+
+                            // 완료한 날짜가 해당 날짜와 정확히 일치할 때만 완료로 인정
+                            if (completedDate != null && completedDate.Value.Date == day.Date)
+                            {
+                                completed++;
+                            }
                         }
                     }
                 }
 
-                double percent = (total == 0) ? 0 : (completed * 100.0 / total);
+                double percent = total == 0 ? 0 : (double)completed / total * 100;
                 series.Points.AddXY(label, percent);
             }
         }
