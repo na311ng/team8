@@ -194,10 +194,16 @@ namespace ToDoList
 
         private void btnApi_Click(object sender, EventArgs e)
         {
-            API ApiForm = new API();
+            // API 키 먼저 실행
+            var apiKeyForm = new ApiKey();
+            if (apiKeyForm.ShowDialog() == DialogResult.OK)
+            {
+                string userKey = apiKeyForm.EnteredApiKey;
 
-            ApiForm.ShowDialog();
-
+                // todoList는 현재 폼(Form1)에서 선언된 데이터테이블임
+                API apiForm = new API(todoList, userKey);
+                apiForm.ShowDialog();
+            }
         }
 
         private void toDoListView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

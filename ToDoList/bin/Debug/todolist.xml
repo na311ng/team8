@@ -24,29 +24,55 @@
     </xs:element>
   </xs:schema>
   <ToDoList>
-    <Title>aaa</Title>
-    <Description />
-    <Start>2025-05-21T00:00:00+09:00</Start>
-    <End>2025-05-23T00:00:00+09:00</End>
+    <Title>운동</Title>
+    <Description>아침 조깅</Description>
+    <Start>2025-05-19T00:00:00+09:00</Start>
+    <End>2025-05-26T00:00:00+09:00</End>
     <Priority>1</Priority>
     <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-23T00:00:00+09:00</CompletedDate>
+    <CompletedDate>2025-05-26T00:00:00+09:00</CompletedDate>
   </ToDoList>
   <ToDoList>
-    <Title>abc</Title>
-    <Description />
-    <Start>2025-05-23T00:00:00+09:00</Start>
-    <End>2025-05-23T00:00:00+09:00</End>
+    <Title>공부</Title>
+    <Description>자료구조 복습</Description>
+    <Start>2025-05-20T00:00:00+09:00</Start>
+    <End>2025-05-20T00:00:00+09:00</End>
     <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-23T00:00:00+09:00</CompletedDate>
-  </ToDoList>
-  <ToDoList>
-    <Title>asdf</Title>
-    <Description />
-    <Start>2025-05-23T00:00:00+09:00</Start>
-    <End>2025-05-23T00:00:00+09:00</End>
-    <Priority>2</Priority>
     <IsCompleted>false</IsCompleted>
+  </ToDoList>
+  <ToDoList>
+    <Title>과제</Title>
+    <Description>자료구조 복습</Description>
+    <Start>2025-05-21T00:00:00+09:00</Start>
+    <End>2025-05-21T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>미팅</Title>
+    <Description>팀 회의</Description>
+    <Start>2025-05-22T00:00:00+09:00</Start>
+    <End>2025-05-22T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>독서</Title>
+    <Description>독서</Description>
+    <Start>2025-05-23T00:00:00+09:00</Start>
+    <End>2025-05-23T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>false</IsCompleted>
+  </ToDoList>
+  <ToDoList>
+    <Title>친구와 약속</Title>
+    <Description>ㅇㅇ</Description>
+    <Start>2025-05-24T00:00:00+09:00</Start>
+    <End>2025-05-27T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
   </ToDoList>
 </NewDataSet>
