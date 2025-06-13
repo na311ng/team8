@@ -24,15 +24,6 @@
     </xs:element>
   </xs:schema>
   <ToDoList>
-    <Title>운동</Title>
-    <Description>아침 조깅</Description>
-    <Start>2025-05-19T00:00:00+09:00</Start>
-    <End>2025-05-26T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-26T00:00:00+09:00</CompletedDate>
-  </ToDoList>
-  <ToDoList>
     <Title>공부</Title>
     <Description>자료구조 복습</Description>
     <Start>2025-05-20T00:00:00+09:00</Start>

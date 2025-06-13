@@ -8,14 +8,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 
 namespace ToDoList
 {
-    public partial class ToDoList : Form
+    public partial class ToDoList : MaterialForm
     {
         public ToDoList()
         {
             InitializeComponent();
+            ApplyTheme("Blue");
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Indigo500, Primary.Indigo700,
+                Primary.Indigo100, Accent.Pink200,
+                TextShade.WHITE);
+            // 예시: toDoListView가 DataGridView 컨트롤 이름일 때
+            toDoListView.EnableHeadersVisualStyles = false;
+
+            // 전체 그리드의 기본 배경/글자색
+            toDoListView.BackgroundColor = Color.FromArgb(38, 50, 56); // 색 조정
+            toDoListView.DefaultCellStyle.BackColor = Color.White; // 셀 배경
+            toDoListView.DefaultCellStyle.ForeColor = Color.Black; // 셀 글자색
+
+            // 선택된 셀 스타일
+            toDoListView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(33, 150, 243); // 파란색 선택
+            toDoListView.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            // 헤더 스타일
+            toDoListView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(63, 81, 181); 
+            toDoListView.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            toDoListView.ColumnHeadersDefaultCellStyle.Font = new Font("Bold", 10, FontStyle.Bold);
         }
 
         //데이터를 데이터 테이블에 저장 후 데이터 그리드 뷰에서 볼 수 있도록 함
@@ -27,7 +54,37 @@ namespace ToDoList
         //카테고리 리스트
         List<string> categories = new List<string> { };
 
+        public void ApplyTheme(string theme)
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
 
+            switch (theme)
+            {
+                case "Blue":
+                    materialSkinManager.ColorScheme = new ColorScheme(
+                        Primary.Blue500, Primary.Blue700, Primary.Blue100, Accent.LightBlue200, TextShade.WHITE
+                    );
+                    break;
+                case "Red":
+                    materialSkinManager.ColorScheme = new ColorScheme(
+                        Primary.Red500, Primary.Red700, Primary.Red100, Accent.Pink200, TextShade.WHITE
+                    );
+                    break;
+                case "Green":
+                    materialSkinManager.ColorScheme = new ColorScheme(
+                        Primary.Green500, Primary.Green700, Primary.Green100, Accent.LightGreen200, TextShade.WHITE
+                    );
+                    break;
+            }
+        }
+        private void btnShop_Click(object sender, EventArgs e)
+        {
+            // 상점 창 띄우기
+            ShopForm shop = new ShopForm(this);
+            shop.ShowDialog();
+        }
+        
 
         private void ToDoList_Load(object sender, EventArgs e)
         {
@@ -60,6 +117,14 @@ namespace ToDoList
                 else
                     col.ReadOnly = false; // 체크박스만 편집 가능
             }
+
+            calendar.TitleBackColor = Color.FromArgb(63, 81, 181);
+            calendar.TitleForeColor = Color.White;
+            calendar.TrailingForeColor = Color.LightGray;
+            calendar.BackColor = Color.FromArgb(38, 50, 56);
+            calendar.ForeColor = Color.White;
+            calendar.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
+            panelCalendar.BackColor = Color.FromArgb(55, 71, 79); // Panel 배경 추가시
 
             calendar.DateChanged += calendar_DateChanged;  // 날짜 클릭 이벤트 연결
 

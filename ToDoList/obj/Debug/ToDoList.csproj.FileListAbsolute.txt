@@ -89,3 +89,11 @@ C:\Users\구본관\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.csproj.CoreCom
 C:\Users\구본관\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.csproj.Up2Date
 C:\Users\구본관\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.exe
 C:\Users\구본관\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\skyjs\Source\Repos\team8\ToDoList\bin\Debug\Newtonsoft.Json.dll
+C:\Users\skyjs\Source\Repos\team8\ToDoList\bin\Debug\Newtonsoft.Json.xml
+C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.API.resources
+C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.ApiKey.resources
+C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.PeriodSelectForm.resources
+C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.csproj.Up2Date
+C:\Users\skyjs\Source\Repos\team8\ToDoList\bin\Debug\MaterialSkin.dll
+C:\Users\skyjs\Source\Repos\team8\ToDoList\obj\Debug\ToDoList.ShopForm.resources
