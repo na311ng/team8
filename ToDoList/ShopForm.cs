@@ -18,15 +18,18 @@ namespace ToDoList
 
         // 구매여부와 포인트는 예시로 static
         private static int userPoints = 100;  // 시작 포인트
+
         private static Dictionary<string, bool> boughtThemes = new Dictionary<string, bool>
     {
         { "Blue", true }, // 기본 제공
         { "Red", false },
         { "Green", false }
+
     };
 
         public ShopForm(ToDoList main)
         {
+
             InitializeComponent();// label 색상 변경
             labelPoints.ForeColor = Color.Blue;      // 원하는 색
             labelPoints.BackColor = Color.Transparent; // 배경은 보통 투명
@@ -38,6 +41,9 @@ namespace ToDoList
             // 테마 리스트 표시
             // (Button 3개 + Label 3개 등으로 간단하게 구현)
             UpdateShopUI();
+
+            btnApplyRed.Visible = false;
+            btnApplyGreen.Visible = false;
         }
         private void UpdateShopUI()
         {
@@ -53,16 +59,19 @@ namespace ToDoList
             btnBuyGreen.Enabled = !boughtThemes["Green"] && userPoints >= 50;
             btnApplyGreen.Enabled = boughtThemes["Green"];
         }
+
         private void btnBuyGreen_Click(object sender, EventArgs e)
         {
             if (userPoints >= 50)
             {
                 btnBuyGreen.Visible = false;
+                btnApplyGreen.Visible = true;
                 boughtThemes["Green"] = true;
                 userPoints -= 50;
                 UpdateShopUI();
             }
         }
+
 
         private void btnApplyGreen_Click(object sender, EventArgs e)
         {
@@ -73,6 +82,7 @@ namespace ToDoList
             if (userPoints >= 50)
             {
                 btnBuyRed.Visible = false;
+                btnApplyRed.Visible = true;
                 boughtThemes["Red"] = true;
                 userPoints -= 50;
                 UpdateShopUI();

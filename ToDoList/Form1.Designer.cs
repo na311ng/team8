@@ -154,7 +154,7 @@
             // panelCalendar
             // 
             this.panelCalendar.Controls.Add(this.calendar);
-            this.panelCalendar.Location = new System.Drawing.Point(773, 76);
+            this.panelCalendar.Location = new System.Drawing.Point(787, 76);
             this.panelCalendar.Name = "panelCalendar";
             this.panelCalendar.Size = new System.Drawing.Size(220, 162);
             this.panelCalendar.TabIndex = 18;
