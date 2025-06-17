@@ -29,6 +29,17 @@
     <Start>2025-06-17T00:00:00+09:00</Start>
     <End>2025-06-17T00:00:00+09:00</End>
     <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <Category>homework</Category>
+    <URL />
+    <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>응소실 플젝 만들기</Title>
+    <Description />
+    <Start>2025-06-15T00:00:00+09:00</Start>
+    <End>2025-06-17T00:00:00+09:00</End>
+    <Priority>1</Priority>
     <IsCompleted>false</IsCompleted>
     <Category>homework</Category>
     <URL />
