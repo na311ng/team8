@@ -57,6 +57,7 @@
             this.toDoListView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellDoubleClick);
             this.toDoListView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.toDoListView_CellFormatting);
             this.toDoListView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellValueChanged);
+            this.toDoListView.CurrentCellDirtyStateChanged += new System.EventHandler(this.toDoListView_CurrentCellDirtyStateChanged);
             // 
             // timerSliding
             // 

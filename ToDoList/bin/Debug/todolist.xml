@@ -24,77 +24,34 @@
     </xs:element>
   </xs:schema>
   <ToDoList>
-    <Title>공부</Title>
-    <Description>자료구조 복습</Description>
-    <Start>2025-05-20T00:00:00+09:00</Start>
-    <End>2025-05-20T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>false</IsCompleted>
-  </ToDoList>
-  <ToDoList>
-    <Title>과제</Title>
-    <Description>자료구조 복습</Description>
-    <Start>2025-05-21T00:00:00+09:00</Start>
-    <End>2025-05-21T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
-  </ToDoList>
-  <ToDoList>
-    <Title>미팅</Title>
-    <Description>팀 회의</Description>
-    <Start>2025-05-22T00:00:00+09:00</Start>
-    <End>2025-05-22T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
-  </ToDoList>
-  <ToDoList>
-    <Title>독서</Title>
-    <Description>독서</Description>
-    <Start>2025-05-23T00:00:00+09:00</Start>
-    <End>2025-05-23T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>false</IsCompleted>
-  </ToDoList>
-  <ToDoList>
-    <Title>친구와 약속</Title>
-    <Description>ㅇㅇ</Description>
-    <Start>2025-05-24T00:00:00+09:00</Start>
-    <End>2025-05-27T00:00:00+09:00</End>
-    <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <CompletedDate>2025-05-24T00:00:00+09:00</CompletedDate>
-  </ToDoList>
-  <ToDoList>
-    <Title>응소실마감</Title>
+    <Title>응소실 팀플</Title>
     <Description />
     <Start>2025-06-17T00:00:00+09:00</Start>
     <End>2025-06-17T00:00:00+09:00</End>
     <Priority>1</Priority>
-    <IsCompleted>false</IsCompleted>
-    <Category>Study</Category>
+    <IsCompleted>true</IsCompleted>
+    <Category>homework</Category>
     <URL />
+    <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
   </ToDoList>
   <ToDoList>
-    <Title>klas</Title>
+    <Title>응소실 플젝 만들기</Title>
     <Description />
-    <Start>2025-06-17T00:00:00+09:00</Start>
+    <Start>2025-06-15T00:00:00+09:00</Start>
     <End>2025-06-17T00:00:00+09:00</End>
     <Priority>1</Priority>
-    <IsCompleted>true</IsCompleted>
-    <Category>Study</Category>
-    <URL>https://klas.kw.ac.kr</URL>
-    <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
+    <IsCompleted>false</IsCompleted>
+    <Category>homework</Category>
+    <URL />
   </ToDoList>
   <ToDoList>
     <Title>운동</Title>
     <Description />
-    <Start>2025-06-02T00:00:00+09:00</Start>
-    <End>2025-06-02T00:00:00+09:00</End>
-    <Priority>1</Priority>
+    <Start>2025-06-17T00:00:00+09:00</Start>
+    <End>2025-06-17T00:00:00+09:00</End>
+    <Priority>2</Priority>
     <IsCompleted>true</IsCompleted>
-    <Category>Health</Category>
+    <Category>workout</Category>
     <URL />
     <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
   </ToDoList>

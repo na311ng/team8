@@ -39,6 +39,7 @@
             this.domainUpDownPriority = new System.Windows.Forms.DomainUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.txtUrl = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dtpStart
@@ -141,11 +142,22 @@
             this.txtUrl.Size = new System.Drawing.Size(650, 28);
             this.txtUrl.TabIndex = 15;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(486, 169);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(122, 18);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "우선순위 지정";
+            // 
             // AddScheduleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(819, 618);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.domainUpDownPriority);
@@ -159,7 +171,7 @@
             this.Controls.Add(this.dtpStart);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddScheduleForm";
-            this.Text = "Form2";
+            this.Text = "일정 추가하기";
             this.Load += new System.EventHandler(this.ToDoList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,5 +191,6 @@
         private System.Windows.Forms.DomainUpDown domainUpDownPriority;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtUrl;
+        private System.Windows.Forms.Label label4;
     }
 }
