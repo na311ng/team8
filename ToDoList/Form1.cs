@@ -15,6 +15,7 @@ namespace ToDoList
 {
     public partial class ToDoList : MaterialForm
     {
+        public string CurrentTheme { get; private set; } = "Blue";
         public ToDoList()
         {
             InitializeComponent();
@@ -56,6 +57,7 @@ namespace ToDoList
 
         public void ApplyTheme(string theme)
         {
+            CurrentTheme = theme; // 다른 폼에 넘겨줄 CurrentTheme
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
 
@@ -302,14 +304,11 @@ namespace ToDoList
 
         private void btnApi_Click(object sender, EventArgs e)
         {
-            // API 키 먼저 실행
-            var apiKeyForm = new ApiKey();
+            var apiKeyForm = new ApiKey(CurrentTheme);
             if (apiKeyForm.ShowDialog() == DialogResult.OK)
             {
                 string userKey = apiKeyForm.EnteredApiKey;
-
-                // todoList는 현재 폼(Form1)에서 선언된 데이터테이블임
-                API apiForm = new API(todoList, userKey);
+                API apiForm = new API(todoList, userKey, CurrentTheme); //key와 현재 테마
                 apiForm.ShowDialog();
             }
         }

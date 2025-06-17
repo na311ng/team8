@@ -1,63 +1,56 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Windows.Forms;
 
 namespace ToDoList
 {
-    public partial class ApiKey : Form
+    public partial class ApiKey : MaterialForm
     {
-        public string EnteredApiKey { get; private set; }
+        public string EnteredApiKey => txtApiKey.Text;
 
-        public ApiKey()
+        public ApiKey(string themeName)
         {
             InitializeComponent();
+            ApplyMaterialTheme(themeName);
         }
 
-        private async void btnSubmit_Click(object sender, EventArgs e)
+        private void ApplyMaterialTheme(string theme)
         {
-            string inputKey = txtApiKey.Text.Trim();
+            var skinManager = MaterialSkinManager.Instance;
+            skinManager.AddFormToManage(this);
+            skinManager.Theme = MaterialSkinManager.Themes.DARK;
 
-            if (string.IsNullOrWhiteSpace(inputKey))
+            switch (theme)
             {
-                MessageBox.Show("API 키를 입력하세요.");
+                case "Blue":
+                    skinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue700, Primary.Blue100, Accent.LightBlue200, TextShade.WHITE);
+                    break;
+                case "Red":
+                    skinManager.ColorScheme = new ColorScheme(Primary.Red500, Primary.Red700, Primary.Red100, Accent.Pink200, TextShade.WHITE);
+                    break;
+                case "Green":
+                    skinManager.ColorScheme = new ColorScheme(Primary.Green500, Primary.Green700, Primary.Green100, Accent.LightGreen200, TextShade.WHITE);
+                    break;
+            }
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtApiKey.Text))
+            {
+                MessageBox.Show("API 키를 입력해주세요.");
                 return;
             }
 
-            bool isValid = await ValidateApiKeyAsync(inputKey);
-
-            if (isValid)
-            {
-                EnteredApiKey = inputKey;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("유효하지 않은 API 키입니다.");
-                this.DialogResult = DialogResult.Cancel;
-                this.Close();
-            }
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private async Task<bool> ValidateApiKeyAsync(string key)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Authorization =
-                        new AuthenticationHeaderValue("Bearer", key);
-
-                    var response = await client.GetAsync("https://api.openai.com/v1/models");
-                    return response.IsSuccessStatusCode;
-                }
-            }
-            catch
-            {
-                return false;
-            }
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }
