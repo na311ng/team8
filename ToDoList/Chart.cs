@@ -95,7 +95,8 @@ namespace ToDoList
                 }
 
                 double percent = total == 0 ? 0 : (double)completed / total * 100;
-                series.Points.AddXY(label, percent);
+                int idx = series.Points.AddXY(label, percent);
+                series.Points[idx].ToolTip = $"{label}: {percent:F1}% ({completed}/{total})";
             }
         }
         private void ShowPriorityCompletionChart(ChartPeriod period)
@@ -135,7 +136,8 @@ namespace ToDoList
                 int total = grp.Count();
                 int completed = grp.Count(row => row.Field<bool>("IsCompleted"));
                 double percent = (total == 0) ? 0 : completed * 100.0 / total;
-                series.Points.AddXY(grp.Key.ToString(), percent);
+                int idx = series.Points.AddXY(grp.Key.ToString(), percent);
+                series.Points[idx].ToolTip = $"Priority {grp.Key.ToString()}: {percent:F1}% ({completed}/{total})";
             }
 
             chart1.Series.Add(series);
@@ -159,6 +161,69 @@ namespace ToDoList
 
                     ShowPriorityCompletionChart(period);
                 }
+            }
+        }
+
+        private void btnCategoryChart_Click(object sender, EventArgs e)
+        {
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+
+            chart1.Titles.Add("Category-wise Completion Rate");
+
+            chart1.ChartAreas.Clear();
+            ChartArea chartArea = new ChartArea("CategoryArea");
+            chartArea.AxisY.Title = "Completion (%)";
+            chartArea.AxisX.Title = "Category";
+            chartArea.AxisY.Maximum = 100;
+            chartArea.AxisY.Minimum = 0;
+            chart1.ChartAreas.Add(chartArea);
+
+            Series series = new Series("Completion Rate")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.MediumSeaGreen
+            };
+
+            var validRows = todoList.AsEnumerable()
+                .Where(row => row.RowState != DataRowState.Deleted &&
+                              !string.IsNullOrWhiteSpace(row.Field<string>("Category")));
+
+            var categoryGroups = validRows
+                .GroupBy(row => row.Field<string>("Category"));
+
+            foreach (var group in categoryGroups)
+            {
+                string category = group.Key;
+                int total = group.Count();
+                int completed = group.Count(row =>
+                    row.Field<bool>("IsCompleted") &&
+                    row["CompletedDate"] != DBNull.Value
+                );
+
+                double percent = (total == 0) ? 0 : completed * 100.0 / total;
+                int pointIndex = series.Points.AddXY(category, percent);
+                DataPoint point = series.Points[pointIndex];
+                point.ToolTip = $"{category}: {percent:F1}% ({completed}/{total})";  // 툴팁 설정
+            }
+
+            chart1.Series.Add(series);
+        }
+
+        private ToolTip tt = new ToolTip();
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
+        {
+            var result = chart1.HitTest(e.X, e.Y);
+            if (result.ChartElementType == ChartElementType.DataPoint)
+            {
+                var point = chart1.Series[0].Points[result.PointIndex];
+                string toolTipText = point.ToolTip;
+
+                tt.Show(toolTipText, chart1, e.Location.X + 15, e.Location.Y - 15, 2000);
+            }
+            else
+            {
+                tt.Hide(chart1);
             }
         }
     }
