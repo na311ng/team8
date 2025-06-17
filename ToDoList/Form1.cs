@@ -210,16 +210,19 @@ namespace ToDoList
         private void calendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             DateTime selectedDate = e.Start.Date;
-            string filter = $"#{selectedDate:MM/dd/yyyy}# >= Start AND #{selectedDate:MM/dd/yyyy}# <= End";
+            DateTime dayStart = selectedDate.Date;
+            DateTime dayEnd = selectedDate.Date.AddDays(1).AddTicks(-1);
 
-            // 완료된 날짜 이후는 표시하지 않도록
-            filter += $" AND (CompletedDate IS NULL OR CompletedDate >= #{selectedDate:MM/dd/yyyy}#)";
+            string filter = $"Start <= #{dayEnd:MM/dd/yyyy HH:mm:ss}# AND End >= #{dayStart:MM/dd/yyyy HH:mm:ss}#";
+            filter += $" AND (CompletedDate IS NULL OR CompletedDate >= #{dayStart:MM/dd/yyyy HH:mm:ss}#)";
 
             DataView view = new DataView(todoList);
             view.RowFilter = filter;
 
             toDoListView.DataSource = view;
+            toDoListView.Refresh();
         }
+
 
         private void btnAddSchedule_Click(object sender, EventArgs e)
         {
@@ -341,30 +344,37 @@ namespace ToDoList
 
         private void toDoListView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                return;
+            if (e.RowIndex < 0 || toDoListView.Columns[e.ColumnIndex].Name != "IsCompleted") return;
 
-            if (toDoListView.Columns[e.ColumnIndex].Name == "IsCompleted")
+            var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
+            bool isChecked = Convert.ToBoolean(row["IsCompleted"]); // 이미 업데이트된 값
+
+            // 현재 캘린더에서 선택된 날짜를 가져옵니다.
+            DateTime selectedDate = calendar.SelectionStart.Date;
+
+            if (isChecked)
             {
-                var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
-                bool isChecked = Convert.ToBoolean(row["IsCompleted"]);
-
-                
-
-                if (isChecked)
+                DateTime endDate = Convert.ToDateTime(row["End"]);
+                DateTime today = DateTime.Today;
+                if (endDate.Date < today) // endDate가 오늘보다 과거인 경우
                 {
-                    // 완료 날짜를 체크한 날짜로 설정
-                    row["CompletedDate"] = DateTime.Today;
+                    row["CompletedDate"] = endDate.Date; // end 날짜로 설정
                 }
                 else
                 {
-                    // 체크 해제 시 완료 날짜 초기화
-                    row["CompletedDate"] = DBNull.Value;
+                    row["CompletedDate"] = today; // 오늘 날짜로 설정
                 }
-
-                toDoListView.Refresh();
             }
+            else
+            {
+                // 체크 해제 시 완료 날짜 초기화
+                row["CompletedDate"] = DBNull.Value;
+            }
+
+            toDoListView.Refresh();
         }
+
+
 
         private void toDoListView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -443,7 +453,10 @@ namespace ToDoList
         {
             if (toDoListView.IsCurrentCellDirty)
             {
-                toDoListView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                if (toDoListView.CurrentCell is DataGridViewCheckBoxCell)
+                {
+                    toDoListView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
             }
         }
     }
