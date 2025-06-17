@@ -107,7 +107,22 @@ namespace ToDoList
 
             //그리드뷰에서 ULR이 보이지 않도록 설정 (투두리스트가 생성 후에 설정)
             if (toDoListView.Columns["URL"] != null)
-                toDoListView.Columns["URL"].Visible = false;
+            {
+                int urlIndex = toDoListView.Columns["URL"].Index;
+                DataGridViewLinkColumn linkCol = new DataGridViewLinkColumn
+                {
+                    Name = "URL",
+                    HeaderText = "Link",
+                    DataPropertyName = "URL",
+                    UseColumnTextForLinkValue = false,
+                    LinkBehavior = LinkBehavior.HoverUnderline,
+                    TrackVisitedState = false
+                };
+
+                toDoListView.Columns.RemoveAt(urlIndex);
+                toDoListView.Columns.Insert(urlIndex, linkCol);
+            }
+                
 
             // 특정 컬럼은 읽기 전용으로 설정
             foreach (DataGridViewColumn col in toDoListView.Columns)
@@ -210,19 +225,32 @@ namespace ToDoList
                 form.SetPriorityRange(todoList.Rows.Count);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    // 일정 저장
-                    todoList.Rows.Add(
-                        form.ScheduleTitle,
-                        form.ScheduleDescription,
-                        form.StartDate,
-                        form.EndDate,
-                        form.Priority,
-                        false
-                    );
-                    SortTodoListByPriority();
-                    // 달력에 시작일 강조
-                    calendar.AddBoldedDate(form.StartDate);
-                    calendar.UpdateBoldedDates();
+                    using (var categoryForm = new CategoryForm())
+                    {
+                        string selectedCategory = "";
+                        if (categoryForm.ShowDialog() == DialogResult.OK)
+                        {
+                            selectedCategory = string.Join(", ", categoryForm.SelectedCategories);
+                        }
+
+                        // 2. 일정 추가 (Category 포함)
+                        todoList.Rows.Add(
+                            form.ScheduleTitle,
+                            form.ScheduleDescription,
+                            form.StartDate,
+                            form.EndDate,
+                            form.Priority,
+                            false,                // IsCompleted
+                            selectedCategory,     // Category
+                            form.ScheduleURL      // URL 기본값
+                        );
+
+                        SortTodoListByPriority();
+
+                        // 3. 달력에 시작일 강조
+                        calendar.AddBoldedDate(form.StartDate);
+                        calendar.UpdateBoldedDates();
+                    }
                 }
             }
         }
@@ -373,5 +401,27 @@ namespace ToDoList
             toDoListView.DataSource = todoList; // DataSource 갱신
         }
 
+        private void toDoListView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (toDoListView.Columns[e.ColumnIndex].Name == "URL")
+            {
+                string url = toDoListView.Rows[e.RowIndex].Cells["URL"].Value?.ToString();
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = url,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Invalid URL: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 }
