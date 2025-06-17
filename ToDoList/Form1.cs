@@ -105,6 +105,9 @@ namespace ToDoList
             toDoListView.DataSource = todoList;
             toDoListView.AllowUserToAddRows = false;
 
+            toDoListView.Columns["Start"].DefaultCellStyle.Format = "MM-dd";
+            toDoListView.Columns["End"].DefaultCellStyle.Format = "MM-dd";
+
             //그리드뷰에서 ULR이 보이지 않도록 설정 (투두리스트가 생성 후에 설정)
             if (toDoListView.Columns["URL"] != null)
             {
@@ -225,7 +228,16 @@ namespace ToDoList
                 form.SetPriorityRange(todoList.Rows.Count);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    using (var categoryForm = new CategoryForm())
+                    var existingCategories = todoList.AsEnumerable()
+                        .Where(row => row.RowState != DataRowState.Deleted)
+                        .Select(row => row.Field<string>("Category"))
+                        .Where(c => !string.IsNullOrWhiteSpace(c))
+                        .SelectMany(c => c.Split(',').Select(x => x.Trim())) // "Work, Study" 처럼 여러 개 있을 경우 분리
+                        .Distinct()
+                        .OrderBy(c => c)
+                        .ToList();
+
+                    using (var categoryForm = new CategoryForm(existingCategories))
                     {
                         string selectedCategory = "";
                         if (categoryForm.ShowDialog() == DialogResult.OK)
@@ -329,17 +341,20 @@ namespace ToDoList
 
         private void toDoListView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
             if (toDoListView.Columns[e.ColumnIndex].Name == "IsCompleted")
             {
                 var row = ((DataRowView)toDoListView.Rows[e.RowIndex].DataBoundItem).Row;
                 bool isChecked = Convert.ToBoolean(row["IsCompleted"]);
 
-                DateTime selectedDate = calendar.SelectionStart.Date;
+                
 
                 if (isChecked)
                 {
                     // 완료 날짜를 체크한 날짜로 설정
-                    row["CompletedDate"] = selectedDate;
+                    row["CompletedDate"] = DateTime.Today;
                 }
                 else
                 {
@@ -421,6 +436,14 @@ namespace ToDoList
                         MessageBox.Show("Invalid URL: " + ex.Message);
                     }
                 }
+            }
+        }
+
+        private void toDoListView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (toDoListView.IsCurrentCellDirty)
+            {
+                toDoListView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
     }

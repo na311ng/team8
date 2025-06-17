@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ToDoList
 {
@@ -189,22 +190,41 @@ namespace ToDoList
                 .Where(row => row.RowState != DataRowState.Deleted &&
                               !string.IsNullOrWhiteSpace(row.Field<string>("Category")));
 
-            var categoryGroups = validRows
-                .GroupBy(row => row.Field<string>("Category"));
+            Dictionary<string, (int total, int completed)> categoryStats = new Dictionary<string, (int, int)>();
 
-            foreach (var group in categoryGroups)
+            foreach (var row in validRows)
             {
-                string category = group.Key;
-                int total = group.Count();
-                int completed = group.Count(row =>
-                    row.Field<bool>("IsCompleted") &&
-                    row["CompletedDate"] != DBNull.Value
-                );
+                string categoryStr = row.Field<string>("Category");
+                var categories = categoryStr.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                            .Select(c => c.Trim());
 
+                foreach (var category in categories)
+                {
+                    if (!categoryStats.ContainsKey(category))
+                        categoryStats[category] = (0, 0);
+
+                    var current = categoryStats[category];
+                    current.total++;
+
+                    bool isCompleted = row.Field<bool>("IsCompleted") &&
+                                       row["CompletedDate"] != DBNull.Value;
+                    if (isCompleted)
+                        current.completed++;
+
+                    categoryStats[category] = current;
+                }
+            }
+
+            foreach (var kvp in categoryStats.OrderBy(k => k.Key))
+            {
+                string category = kvp.Key;
+                int total = kvp.Value.total;
+                int completed = kvp.Value.completed;
                 double percent = (total == 0) ? 0 : completed * 100.0 / total;
+
                 int pointIndex = series.Points.AddXY(category, percent);
                 DataPoint point = series.Points[pointIndex];
-                point.ToolTip = $"{category}: {percent:F1}% ({completed}/{total})";  // 툴팁 설정
+                point.ToolTip = $"{category}: {percent:F1}% ({completed}/{total})";
             }
 
             chart1.Series.Add(series);
