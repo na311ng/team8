@@ -82,8 +82,20 @@
     <Start>2025-06-17T00:00:00+09:00</Start>
     <End>2025-06-17T00:00:00+09:00</End>
     <Priority>1</Priority>
-    <IsCompleted>false</IsCompleted>
+    <IsCompleted>true</IsCompleted>
     <Category>Study</Category>
     <URL>https://klas.kw.ac.kr</URL>
+    <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
+  </ToDoList>
+  <ToDoList>
+    <Title>운동</Title>
+    <Description />
+    <Start>2025-06-02T00:00:00+09:00</Start>
+    <End>2025-06-02T00:00:00+09:00</End>
+    <Priority>1</Priority>
+    <IsCompleted>true</IsCompleted>
+    <Category>Health</Category>
+    <URL />
+    <CompletedDate>2025-06-17T00:00:00+09:00</CompletedDate>
   </ToDoList>
 </NewDataSet>
