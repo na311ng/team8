@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ToDoList",
+    "\\ToDoList\\Properties"
   ],
   "SelectedNode": "\\ToDoList.sln",
   "PreviewInSolutionExplorer": false

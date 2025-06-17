@@ -31,6 +31,13 @@ namespace ToDoList
             set { txtDescription.Text = value; }
         }
 
+        public string ScheduleURL
+        {
+            get { return txtUrl.Text; }
+            set { txtUrl.Text = value; }
+
+        }
+
         public DateTime StartDate
         {
             get { return dtpStart.Value; }

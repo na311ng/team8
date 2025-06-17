@@ -117,3 +117,11 @@ C:\Users\skyjs\Documents\GitHub\team8\ToDoList\obj\Debug\ToDoList.csproj.CoreCom
 C:\Users\skyjs\Documents\GitHub\team8\ToDoList\obj\Debug\ToDoList.csproj.Up2Date
 C:\Users\skyjs\Documents\GitHub\team8\ToDoList\obj\Debug\ToDoList.exe
 C:\Users\skyjs\Documents\GitHub\team8\ToDoList\obj\Debug\ToDoList.pdb
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\bin\Debug\MaterialSkin.dll
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.API.resources
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.ApiKey.resources
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.ShopForm.resources
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.csproj.CopyComplete
+C:\Users\nayoung\Desktop\team8\team8\ToDoList\obj\Debug\ToDoList.CategoryForm.resources

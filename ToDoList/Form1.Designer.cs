@@ -47,13 +47,13 @@
             this.toDoListView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.toDoListView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.toDoListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.toDoListView.Location = new System.Drawing.Point(18, 76);
-            this.toDoListView.Margin = new System.Windows.Forms.Padding(2);
+            this.toDoListView.Location = new System.Drawing.Point(26, 114);
             this.toDoListView.Name = "toDoListView";
             this.toDoListView.RowHeadersWidth = 82;
             this.toDoListView.RowTemplate.Height = 37;
-            this.toDoListView.Size = new System.Drawing.Size(750, 408);
+            this.toDoListView.Size = new System.Drawing.Size(1071, 612);
             this.toDoListView.TabIndex = 9;
+            this.toDoListView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellContentClick);
             this.toDoListView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellDoubleClick);
             this.toDoListView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.toDoListView_CellFormatting);
             this.toDoListView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.toDoListView_CellValueChanged);
@@ -69,8 +69,8 @@
             this.btnAddSchedule1.Depth = 0;
             this.btnAddSchedule1.HighEmphasis = true;
             this.btnAddSchedule1.Icon = null;
-            this.btnAddSchedule1.Location = new System.Drawing.Point(789, 255);
-            this.btnAddSchedule1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAddSchedule1.Location = new System.Drawing.Point(1127, 382);
+            this.btnAddSchedule1.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
             this.btnAddSchedule1.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAddSchedule1.Name = "btnAddSchedule1";
             this.btnAddSchedule1.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -89,8 +89,8 @@
             this.btnChart1.Depth = 0;
             this.btnChart1.HighEmphasis = true;
             this.btnChart1.Icon = null;
-            this.btnChart1.Location = new System.Drawing.Point(789, 333);
-            this.btnChart1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnChart1.Location = new System.Drawing.Point(1127, 500);
+            this.btnChart1.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
             this.btnChart1.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnChart1.Name = "btnChart1";
             this.btnChart1.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -109,8 +109,8 @@
             this.btnApi1.Depth = 0;
             this.btnApi1.HighEmphasis = true;
             this.btnApi1.Icon = null;
-            this.btnApi1.Location = new System.Drawing.Point(920, 333);
-            this.btnApi1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnApi1.Location = new System.Drawing.Point(1314, 500);
+            this.btnApi1.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
             this.btnApi1.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnApi1.Name = "btnApi1";
             this.btnApi1.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -129,8 +129,8 @@
             this.btnDelete.Depth = 0;
             this.btnDelete.HighEmphasis = true;
             this.btnDelete.Icon = null;
-            this.btnDelete.Location = new System.Drawing.Point(904, 255);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDelete.Location = new System.Drawing.Point(1291, 382);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
             this.btnDelete.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -145,7 +145,7 @@
             // calendar
             // 
             this.calendar.Location = new System.Drawing.Point(0, 0);
-            this.calendar.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.calendar.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.calendar.MaxSelectionCount = 1;
             this.calendar.Name = "calendar";
             this.calendar.TabIndex = 0;
@@ -154,9 +154,10 @@
             // panelCalendar
             // 
             this.panelCalendar.Controls.Add(this.calendar);
-            this.panelCalendar.Location = new System.Drawing.Point(787, 76);
+            this.panelCalendar.Location = new System.Drawing.Point(1124, 114);
+            this.panelCalendar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelCalendar.Name = "panelCalendar";
-            this.panelCalendar.Size = new System.Drawing.Size(220, 162);
+            this.panelCalendar.Size = new System.Drawing.Size(314, 243);
             this.panelCalendar.TabIndex = 18;
             // 
             // btnShop
@@ -167,8 +168,8 @@
             this.btnShop.Font = new System.Drawing.Font("굴림", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btnShop.HighEmphasis = true;
             this.btnShop.Icon = null;
-            this.btnShop.Location = new System.Drawing.Point(847, 409);
-            this.btnShop.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnShop.Location = new System.Drawing.Point(1210, 614);
+            this.btnShop.Margin = new System.Windows.Forms.Padding(6, 9, 6, 9);
             this.btnShop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnShop.Name = "btnShop";
             this.btnShop.NoAccentTextColor = System.Drawing.Color.Empty;
@@ -182,9 +183,9 @@
             // 
             // ToDoList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1013, 513);
+            this.ClientSize = new System.Drawing.Size(1447, 770);
             this.Controls.Add(this.btnShop);
             this.Controls.Add(this.panelCalendar);
             this.Controls.Add(this.btnDelete);
@@ -192,8 +193,8 @@
             this.Controls.Add(this.btnApi1);
             this.Controls.Add(this.btnAddSchedule1);
             this.Controls.Add(this.toDoListView);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ToDoList";
+            this.Padding = new System.Windows.Forms.Padding(4, 96, 4, 4);
             this.Text = "To Do List";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ToDoList_FormClosed);
             this.Load += new System.EventHandler(this.ToDoList_Load);
